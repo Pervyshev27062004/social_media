@@ -3,12 +3,11 @@
 
 {% block content %}
   <div class="container">
-  <h1>Register user</h1>
+  <h1>Login user</h1>
   <form method="POST" class="post-form">
     {% csrf_token %}
     {{ form|crispy }}
     <button type="submit" class="save btn btn-primary">Save</button>
-    <button type="submit" class="save btn btn-primary">Ich habe Akk.</button>
   </form>
     </div>
 {% endblock %}
