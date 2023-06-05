@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -37,8 +38,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'social_media.profiles',
+    'crispy_forms',
+    'crispy_bootstrap5',
+    'social_media',
+    'profiles',
 ]
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -76,7 +83,7 @@ WSGI_APPLICATION = 'social_media.wsgi.application'
 
 DATABASES = {
     "default": {
-        "ENGINE": "social_media.db.backends.postgresql",
+        "ENGINE": "django.db.backends.postgresql",
         "NAME": "social_media",
         "USER": "social_media",
         "PASSWORD": "social_media",
@@ -127,3 +134,30 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGGING = {
+   'version': 1,
+   'disable_existing_loggers': False,
+   'handlers': {
+       'console': {
+           'class': 'logging.StreamHandler',
+           'formatter': 'simple',
+       },
+   },
+   'formatters': {
+       'simple': {'format': '%(levelname)s %(asctime)s %(message)s'},
+   },
+   'loggers': {
+       '': {
+           'handlers': ['console'],
+           'level': 'INFO',
+       },
+       'django.db.backends': {
+           'handlers': ['console'],
+           'level': 'ERROR',
+       }
+   }
+}
+
+MY_CUSTOM_VARIABLE = "Hello world!"
+MY_ENV_VARIABLE = os.getenv("MY_ENV_VARIABLE", None)

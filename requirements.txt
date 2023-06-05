@@ -3,3 +3,4 @@ wheel~=0.38.4
 setuptools~=65.5.1
 requests~=2.31.0
 Django~=4.2.1
+crispy-bootstrap5==0.7
