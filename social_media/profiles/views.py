@@ -44,4 +44,5 @@ def login_view(request):
     return render(request, "login.html", {"form": form})
 
 
-
+def my_page(request):
+    return render(request, "my_page.html", {"form": form})
