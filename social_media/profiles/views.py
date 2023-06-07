@@ -6,18 +6,7 @@ from django.contrib.auth import login, authenticate
 
 from profiles.forms import RegisterForm, LoginForm
 
-
 logger = logging.getLogger(__name__)
-
-
-def index(request):
-    for key, value in request.POST.items():
-        logger.info(f"POST param: {key}={value}")
-
-    if request.GET.get("key") == "test":
-        return HttpResponse("Posts with test key")
-
-    return HttpResponse("Posts index view")
 
 
 def register(request):
@@ -30,7 +19,7 @@ def register(request):
             )
             user.set_password(form.cleaned_data["password"])
             user.save()
-            return redirect("login_view")
+            return redirect("login")
     else:
         form = RegisterForm()
 
@@ -47,9 +36,12 @@ def login_view(request):
                 password=form.cleaned_data["password"],
             )
             if user is None:
-                return HttpResponse('BadRequest', status=400)
+                return HttpResponse("BadRequest", status=400)
             login(request, user)
-            return redirect("index5")
+            return redirect("my_page")
     else:
         form = LoginForm()
     return render(request, "login.html", {"form": form})
+
+
+
