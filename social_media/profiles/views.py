@@ -6,13 +6,35 @@ from django.contrib.auth import login, authenticate
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
-
+from django.contrib.auth.decorators import login_required
 
 from profiles.forms import RegisterForm, LoginForm, AddNoteForm
 
 from profiles.models import Profile, Note
 
 logger = logging.getLogger(__name__)
+
+posts = [
+    {
+        'author': 'Администратор',
+        'title': 'Это первый пост',
+        'content': 'Содержание первого поста.',
+        'date_posted': '12 мая, 2022'
+    },
+    {
+        'author': 'Пользователь',
+        'title': 'Это второй пост',
+        'content': 'Подробное содержание второго поста.',
+        'date_posted': '13 мая, 2022'
+    },
+]
+
+
+def home(request):
+    context = {
+        'posts': posts
+    }
+    return render(request, 'home.html', context)
 
 
 def register(request):
@@ -24,7 +46,6 @@ def register(request):
                 username=form.cleaned_data["last_name"],
                 first_name=form.cleaned_data["first_name"],
                 last_name=form.cleaned_data["last_name"],
-                age=form.cleaned_data["age"],
             )
             user.set_password(form.cleaned_data["password"])
             user.save()
@@ -37,7 +58,7 @@ def register(request):
 
 class ShowProfilePageView(DetailView):
     model = Profile
-    template_name = 'user_profile.html'
+    template_name = 'profile.html'
 
     def get_context_data(self, *args, **kwargs):
         users = Profile.objects.all()
@@ -60,22 +81,9 @@ class CreateProfilePageView(CreateView):
     success_url = reverse_lazy('login')
 
 
-def login_view(request):
-    if request.method == "POST":
-        form = LoginForm(request.POST)
-        if form.is_valid():
-            user = authenticate(
-                request=request,
-                username=form.cleaned_data["email"],
-                password=form.cleaned_data["password"],
-            )
-            if user is None:
-                return HttpResponse("BadRequest", status=400)
-            login(request, user)
-            return redirect("my_page")
-    else:
-        form = LoginForm()
-    return render(request, "login.html", {"form": form})
+@login_required
+def profile(request):
+    return render(request, 'profile.html')
 
 
 def post(request):
@@ -93,6 +101,3 @@ def post(request):
         form = AddNoteForm()
     return render(request, "index.html", {"notes": notes, "form": form})
 
-
-def my_page(request):
-    return render(request, "my_page.html")
