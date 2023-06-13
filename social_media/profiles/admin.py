@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from profiles.models import Profile
-from profiles.models import Post
+from profiles.models import Note
 
 
 @admin.register(Profile)
@@ -12,7 +12,7 @@ class ProfileAdmin(admin.ModelAdmin):
     search_fields = ("first_name", "last_name")
 
 
-@admin.register(Post)
+@admin.register(Note)
 class PostAdmin(admin.ModelAdmin):
     list_display = ("title", "profile", "created_at", "body")
     fields = ("title", "profile", "created_at")

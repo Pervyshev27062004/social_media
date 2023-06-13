@@ -8,9 +8,9 @@ from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
 
 
-from profiles.forms import RegisterForm, LoginForm
+from profiles.forms import RegisterForm, LoginForm, AddNoteForm
 
-from profiles.models import Profile, Post
+from profiles.models import Profile, Note
 
 logger = logging.getLogger(__name__)
 
@@ -24,13 +24,11 @@ def register(request):
                 username=form.cleaned_data["last_name"],
                 first_name=form.cleaned_data["first_name"],
                 last_name=form.cleaned_data["last_name"],
+                age=form.cleaned_data["age"],
             )
             user.set_password(form.cleaned_data["password"])
             user.save()
-            Profile(user=user,
-                    )
-            Profile.save()
-            return redirect("login")
+            return redirect("create_profile")
     else:
         form = RegisterForm()
 
@@ -81,15 +79,19 @@ def login_view(request):
 
 
 def post(request):
-    notes = []
+    notes = Note.objects.all()
     if request.method == "POST":
-        form = Post(request.POST)
+        form = AddNoteForm(request.POST)
         if form.is_valid():
-            # Create new DB record
-            pass
+            Note.objects.create(
+                user=request.user,
+                title=form.cleaned_data["title"],
+                text=form.cleaned_data["body"]
+            )
+            return redirect("post")
     else:
-        form = Post()
-    return render(request, "register", {"notes": notes, "form": form})
+        form = AddNoteForm()
+    return render(request, "index.html", {"notes": notes, "form": form})
 
 
 def my_page(request):

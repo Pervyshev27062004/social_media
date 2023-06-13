@@ -5,7 +5,6 @@ from django.contrib.auth.models import User
 
 class Profile(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
-
     profile_pic = models.ImageField(null=True, blank=True, upload_to="images/profile/")
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
@@ -13,11 +12,13 @@ class Profile(models.Model):
     created_at = models.DateTimeField(
         auto_now_add=True, db_index=True
     )
+
+
 def __str__(self):
     return str(self.user)
 
 
-class Post(models.Model):
+class Note(models.Model):
     title = models.CharField(max_length=200)
     profile = models.ForeignKey(
         'profiles.Profile', on_delete=models.CASCADE,

@@ -14,6 +14,6 @@ class LoginForm(forms.Form):
     password = forms.CharField(max_length=255)
 
 
-class Post(forms.Form):
+class AddNoteForm(forms.Form):
     title = forms.CharField(max_length=50)
-    body = forms.TextField()
+    body = forms.CharField(max_length=1000, widget=forms.Textarea)

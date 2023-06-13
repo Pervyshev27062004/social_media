@@ -1,7 +1,6 @@
-<!-- add_note.html -->
 {% load crispy_forms_filters %}
 
-<h2>Add Post</h2>
+<h2>Add Note</h2>
 <form method="POST" class="note-form">
   {% csrf_token %}
   {{ form|crispy }}
