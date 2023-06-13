@@ -12,3 +12,8 @@ class RegisterForm(forms.Form):
 class LoginForm(forms.Form):
     email = forms.CharField(max_length=255)
     password = forms.CharField(max_length=255)
+
+
+class Post(forms.Form):
+    title = forms.CharField(max_length=50)
+    body = forms.TextField()

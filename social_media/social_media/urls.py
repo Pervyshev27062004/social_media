@@ -3,7 +3,8 @@ from django.urls import path
 from django.conf import settings
 
 
-from profiles.views import register, login_view, my_page, ShowProfilePageView, CreateProfilePageView
+from profiles.views import register, login_view, my_page,\
+    ShowProfilePageView, CreateProfilePageView, post
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -12,6 +13,7 @@ urlpatterns = [
     path("my_page/", my_page, name="my_page"),
     path("user_profile/<int:pk>/", ShowProfilePageView.as_view(), name='user_profile'),
     path('create_profile_page/', CreateProfilePageView.as_view(), name='create_profile'),
+    path('', post(), name='post')
 ]
 
 if settings.DEBUG:

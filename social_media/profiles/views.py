@@ -10,7 +10,7 @@ from django.urls import reverse_lazy
 
 from profiles.forms import RegisterForm, LoginForm
 
-from profiles.models import Profile
+from profiles.models import Profile, Post
 
 logger = logging.getLogger(__name__)
 
@@ -39,7 +39,7 @@ def register(request):
 
 class ShowProfilePageView(DetailView):
     model = Profile
-    template_name = 'base/user_profile.html'
+    template_name = 'user_profile.html'
 
     def get_context_data(self, *args, **kwargs):
         users = Profile.objects.all()
@@ -59,7 +59,7 @@ class CreateProfilePageView(CreateView):
         form.instance.user = self.request.user
         return super().form_valid(form)
 
-    success_url = reverse_lazy('tasks')
+    success_url = reverse_lazy('login')
 
 
 def login_view(request):
@@ -78,6 +78,18 @@ def login_view(request):
     else:
         form = LoginForm()
     return render(request, "login.html", {"form": form})
+
+
+def post(request):
+    notes = []
+    if request.method == "POST":
+        form = Post(request.POST)
+        if form.is_valid():
+            # Create new DB record
+            pass
+    else:
+        form = Post()
+    return render(request, "register", {"notes": notes, "form": form})
 
 
 def my_page(request):
