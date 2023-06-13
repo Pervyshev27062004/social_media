@@ -15,6 +15,7 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+ROOT_DIR = BASE_DIR.parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -160,3 +161,17 @@ LOGGING = {
 
 MY_CUSTOM_VARIABLE = "Hello world!"
 MY_ENV_VARIABLE = os.getenv("MY_ENV_VARIABLE", None)
+
+
+STATICFILES_FINDERS = [
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+]
+
+STATICFILES_DIRS = [BASE_DIR / "static"]
+
+STATIC_ROOT = ROOT_DIR / "static"
+STATIC_URL = "static/"
+
+MEDIA_ROOT = BASE_DIR / "media"
+MEDIA_URL = "media/"
