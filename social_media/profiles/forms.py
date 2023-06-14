@@ -9,11 +9,6 @@ class RegisterForm(forms.Form):
     age = forms.IntegerField(min_value=18, max_value=30, required=False)
 
 
-class LoginForm(forms.Form):
-    email = forms.CharField(max_length=255)
-    password = forms.CharField(max_length=255)
-
-
 class AddNoteForm(forms.Form):
     title = forms.CharField(max_length=50)
     body = forms.CharField(max_length=1000, widget=forms.Textarea)

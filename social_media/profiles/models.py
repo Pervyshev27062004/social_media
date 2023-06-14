@@ -9,9 +9,7 @@ class Profile(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     age = models.IntegerField()
-    created_at = models.DateTimeField(
-        auto_now_add=True, db_index=True
-    )
+    created_at = models.DateTimeField(auto_now_add=True, db_index=True)
 
 
 def __str__(self):
@@ -21,7 +19,8 @@ def __str__(self):
 class Note(models.Model):
     title = models.CharField(max_length=200)
     profile = models.ForeignKey(
-        'profiles.Profile', on_delete=models.CASCADE,
+        "profiles.Profile",
+        on_delete=models.CASCADE,
     )
     created_at = models.DateTimeField(auto_now_add=True, db_index=True)
     body = models.TextField()
