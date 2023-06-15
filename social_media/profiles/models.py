@@ -18,8 +18,8 @@ def __str__(self):
 
 class Note(models.Model):
     title = models.CharField(max_length=200)
-    profile = models.ForeignKey(
-        "profiles.Profile",
+    author = models.ForeignKey(
+        'profiles.Profile',
         on_delete=models.CASCADE,
     )
     created_at = models.DateTimeField(auto_now_add=True, db_index=True)

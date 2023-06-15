@@ -20,7 +20,7 @@ class ProfileAdmin(admin.ModelAdmin):
 
 
 @admin.register(Note)
-class PostAdmin(admin.ModelAdmin):
-    list_display = ("title", "profile", "created_at", "body")
-    fields = ("title", "profile", "created_at", "body")
+class NoteAdmin(admin.ModelAdmin):
+    list_display = ("title", "author", "created_at", "body")
+    fields = ("title", "author", "created_at", "body")
     readonly_fields = ("created_at",)
