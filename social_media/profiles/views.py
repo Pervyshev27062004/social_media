@@ -1,8 +1,7 @@
 import logging
-from django.http import HttpResponse
+from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.models import User
-from django.contrib.auth import login, authenticate
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
@@ -52,6 +51,11 @@ def register(request):
         form = RegisterForm()
 
     return render(request, "register.html", {"form": form})
+
+    try:
+        instance.profile.save()
+    except ObjectDoesNotExist:
+        Profile.objects.create(user=instance)
 
 
 class ShowProfilePageView(DetailView):

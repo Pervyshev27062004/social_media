@@ -8,7 +8,7 @@
     {% csrf_token %}
     {{ form|crispy }}
     <button type="submit" class="save btn btn-primary">Save</button>
-    <a href="login/" class="btn btn-primary" tabindex="-1" role="button" >Ich habe Akk.</a>
+    <a class="btn btn-primary" href="{% url 'login' %}" tabindex="-1" role="button"> Ich habe Akk.</a>
   </form>
     </div>
 {% endblock %}

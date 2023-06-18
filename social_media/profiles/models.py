@@ -8,7 +8,7 @@ class Profile(models.Model):
     profile_pic = models.ImageField(null=True, blank=True, upload_to="images/profile/")
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
-    age = models.IntegerField()
+    age = models.IntegerField(default=21)
     created_at = models.DateTimeField(auto_now_add=True, db_index=True)
 
 
