@@ -1,4 +1,5 @@
 import logging
+from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.models import User
@@ -7,7 +8,7 @@ from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 
-from profiles.forms import RegisterForm, AddNoteForm
+from profiles.forms import RegisterForm, AddNoteForm, UserUpdateForm, ProfileUpdateForm
 
 from profiles.models import Profile, Note
 
@@ -85,7 +86,27 @@ class CreateProfilePageView(CreateView):
 
 @login_required
 def profile(request):
-    return render(request, "profile.html")
+    if request.method == 'POST':
+        u_form = UserUpdateForm(request.POST, instance=request.user)
+        p_form = ProfileUpdateForm(request.POST,
+                                   request.FILES,
+                                   instance=request.user.profile)
+        if u_form.is_valid() and p_form.is_valid():
+            u_form.save()
+            p_form.save()
+            messages.success(request, f'Ваш профиль успешно обновлен.')
+            return redirect('profile')
+
+    else:
+        u_form = UserUpdateForm(instance=request.user)
+        p_form = ProfileUpdateForm(instance=request.user.profile)
+
+    context = {
+        'u_form': u_form,
+        'p_form': p_form
+    }
+
+    return render(request, 'profile.html', context)
 
 
 def post(request):
