@@ -8,31 +8,18 @@ from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 
-from profiles.forms import RegisterForm, AddNoteForm, UserUpdateForm, ProfileUpdateForm
+from profiles.forms import RegisterForm, AddPostForm, UserUpdateForm, ProfileUpdateForm
 
-from profiles.models import Profile, Note
+from profiles.models import Profile, Post
 
 logger = logging.getLogger(__name__)
 
-posts = [
-    {
-        "author": "Администратор",
-        "title": "Это первый пост",
-        "content": "Содержание первого поста.",
-        "date_posted": "12 мая, 2022",
-    },
-    {
-        "author": "Пользователь",
-        "title": "Это второй пост",
-        "content": "Подробное содержание второго поста.",
-        "date_posted": "13 мая, 2022",
-    },
-]
-
 
 def home(request):
-    context = {"posts": posts}
-    return render(request, "home.html", context)
+    context = {
+        'posts': Post.objects.all()
+    }
+    return render(request, 'home.html', context)
 
 
 def register(request):
@@ -110,16 +97,16 @@ def profile(request):
 
 
 def post(request):
-    notes = Note.objects.all()
+    notes = Post.objects.all()
     if request.method == "POST":
-        form = AddNoteForm(request.POST)
+        form = AddPostForm(request.POST)
         if form.is_valid():
-            Note.objects.create(
+            Post.objects.create(
                 user=request.user,
                 title=form.cleaned_data["title"],
-                text=form.cleaned_data["body"],
+                text=form.cleaned_data["content"],
             )
             return redirect("post")
     else:
-        form = AddNoteForm()
+        form = AddPostForm()
     return render(request, "index.html", {"notes": notes, "form": form})

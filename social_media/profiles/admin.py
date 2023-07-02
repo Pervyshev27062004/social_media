@@ -1,7 +1,6 @@
 from django.contrib import admin
-
 from profiles.models import Profile
-from profiles.models import Note
+from profiles.models import Post
 
 
 @admin.register(Profile)
@@ -19,8 +18,8 @@ class ProfileAdmin(admin.ModelAdmin):
     search_fields = ("first_name", "last_name")
 
 
-@admin.register(Note)
-class NoteAdmin(admin.ModelAdmin):
-    list_display = ("title", "author", "created_at", "body")
-    fields = ("title", "author", "created_at", "body")
-    readonly_fields = ("created_at",)
+@admin.register(Post)
+class PostAdmin(admin.ModelAdmin):
+    list_display = ("title", "content", "date_posted", "author")
+    fields = ("title", "author", "date_posted", "content")
+    readonly_fields = ("date_posted",)
