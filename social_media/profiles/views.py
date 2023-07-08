@@ -1,6 +1,5 @@
 import logging
 from django.contrib import messages
-from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.models import User
 from django.views.generic.detail import DetailView

@@ -3,6 +3,7 @@ from django.urls import path
 from django.conf import settings
 from django.contrib.auth import views as auth_views
 from profiles import views as user_views
+from message.views import post_message
 
 
 from profiles.views import (
@@ -40,6 +41,7 @@ urlpatterns = [
         "create_profile_page/", CreateProfilePageView.as_view(), name="create_profile"
     ),
     path("add_post", post, name="add_post"),
+    path("messages/", post_message, name="post_message"),
 ]
 
 if settings.DEBUG:
