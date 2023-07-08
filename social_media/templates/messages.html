@@ -5,19 +5,15 @@
           <img class="rounded-circle article-img" src="{{ post.author.profile.profile_pic.url }}">
           <div class="media-body">
             <div class="article-metadata">
-              <a class="mr-2" href="{% url 'user-posts' post.author.username %}">{{ post.author }}</a>
+
               <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
             </div>
-            <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
             <p class="article-content">{{ post.content }}</p>
           </div>
         </article>
 <script type="text/javascript" src="//yandex.st/share/share.js"
 charset="utf-8"></script>
-<div class="yashare-auto-init" data-yashareL10n="ru"
- data-yashareType="button" data-yashareQuickServices="yaru,vkontakte,facebook,twitter,odnoklassniki,moimir"
 
-></div>
 <!-- LikeBtn.com BEGIN -->
 <span class="likebtn-wrapper" data-lang="ru" data-identifier="item_1"></span>
 <script>(function(d,e,s){if(d.getElementById("likebtn_wjs"))return;a=d.createElement(e);m=d.getElementsByTagName(e)[0];a.async=1;a.id="likebtn_wjs";a.src=s;m.parentNode.insertBefore(a, m)})(document,"script","//w.likebtn.com/js/w/widget.js");</script>
