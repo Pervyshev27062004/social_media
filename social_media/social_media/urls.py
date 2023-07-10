@@ -4,7 +4,7 @@ from django.conf import settings
 from django.contrib.auth import views as auth_views
 from profiles import views as user_views
 from message.views import MessageListView, post_message
-from gallery.views import PictureListView
+from gallery.views import PictureListView, PictureDetailView
 
 
 from profiles.views import (
@@ -41,7 +41,8 @@ urlpatterns = [
     path("add_post", post, name="add_post"),
     path("messages/", MessageListView.as_view(), name="message"),
     path("add_message/", post_message, name="add_message"),
-    path("gallery/<str:username>", PictureListView.as_view(), name="gallery")
+    path("gallery/<str:username>", PictureListView.as_view(), name="gallery"),
+    path("picture/<int:pk>/", PictureDetailView.as_view(), name="picture-detail")
 ]
 
 if settings.DEBUG:
