@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "social_media",
     "profiles",
     "message",
+    "gallery"
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
