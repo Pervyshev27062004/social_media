@@ -1,6 +1,16 @@
-from django import forms
+from django.forms import ModelForm, TextInput
+from message.models import Message
 
 
-class AddMessageForm(forms.Form):
-    title = forms.CharField(max_length=50)
-    message = forms.CharField(max_length=1000, widget=forms.Textarea)
+class AddMessageForm(ModelForm):
+    class Meta:
+        model = Message
+        fields = ['message', 'author']
+
+        widgets = {
+            'message': TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Написать сообщение'
+            }),
+
+        }

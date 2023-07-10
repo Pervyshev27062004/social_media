@@ -1,0 +1,13 @@
+{% load static %}
+
+{% block content %}
+  <div class="feature">
+    <h2> Сообщение:</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.message }}<br>
+        {{ form.author }}<br>
+        <button class="btn btn-success" type="submit">Отправить</button>
+    </form>
+  </div>
+{% endblock %}

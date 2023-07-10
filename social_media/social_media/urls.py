@@ -3,7 +3,7 @@ from django.urls import path
 from django.conf import settings
 from django.contrib.auth import views as auth_views
 from profiles import views as user_views
-from message.views import post_message
+from message.views import MessageListView, post_message
 
 
 from profiles.views import (
@@ -11,10 +11,8 @@ from profiles.views import (
     ShowProfilePageView,
     CreateProfilePageView,
     post,
-    home,
     PostListView,
     PostDetailView,
-    PostCreateView,
     PostDeleteView,
     UserPostListView,
 )
@@ -22,7 +20,6 @@ from profiles.views import (
 urlpatterns = [
     path("", PostListView.as_view(), name="home"),
     path("post/<int:pk>/", PostDetailView.as_view(), name="post-detail"),
-    path("post/new/", PostCreateView.as_view(), name="post-create"),
     path("post/<int:pk>/delete/", PostDeleteView.as_view(), name="post-delete"),
     path("user/<str:username>", UserPostListView.as_view(), name="user-posts"),
     path("admin/", admin.site.urls),
@@ -41,7 +38,8 @@ urlpatterns = [
         "create_profile_page/", CreateProfilePageView.as_view(), name="create_profile"
     ),
     path("add_post", post, name="add_post"),
-    path("messages/", post_message, name="post_message"),
+    path("messages/", MessageListView.as_view(), name="message"),
+    path("add_message/", post_message, name="add_message"),
 ]
 
 if settings.DEBUG:

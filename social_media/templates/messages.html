@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
+
     {% for message in messages %}
         <article class="media content-section">
           <img class="rounded-circle article-img" src="{{ message.author.profile.profile_pic.url }}">
@@ -11,10 +12,15 @@
             <p class="article-message">{{ message.message }}</p>
           </div>
         </article>
+
+
+
 <script type="text/javascript" src="//yandex.st/share/share.js"
 charset="utf-8"></script>
 
     {% endfor %}
+{% include "add_message.html" %}
+
     <div class="pagination justify-content-center">
     {% if is_paginated %}
 
@@ -39,4 +45,5 @@ charset="utf-8"></script>
 
     {% endif %}
   </div>
+
 {% endblock content %}

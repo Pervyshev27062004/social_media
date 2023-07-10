@@ -21,13 +21,6 @@ from django.views.generic import (
 logger = logging.getLogger(__name__)
 
 
-def home(request):
-    context = {
-        'posts': Post.objects.all()
-    }
-    return render(request, 'home.html', context)
-
-
 def register(request):
     if request.method == "POST":
         form = RegisterForm(request.POST)
@@ -98,19 +91,22 @@ def profile(request):
 
 
 def post(request):
-    posts = Post.objects.all()
+    error = ''
     if request.method == "POST":
         form = AddPostForm(request.POST)
         if form.is_valid():
-            Post.objects.create(
-                user=request.user,
-                title=form.cleaned_data["title"],
-                text=form.cleaned_data["content"],
-            )
-            return redirect("home.html")
-    else:
-        form = AddPostForm()
-    return render(request, "home.html", {"posts": posts, "form": form})
+            form.save()
+            return redirect('home')
+        else:
+            error = 'Форма была неверной'
+    form = AddPostForm()
+
+# data is a dictionary
+    data = {
+        'form': form,
+        'error': error
+    }
+    return render(request, "add_post.html", data)
 
 
 class PostListView(ListView):
@@ -135,12 +131,6 @@ class UserPostListView(ListView):
 class PostDetailView(DetailView):
     model = Post
     template_name = "post_detail.html"
-
-
-class PostCreateView(LoginRequiredMixin, CreateView):
-    model = Post
-    template_name = "post_form.html"
-    fields = ['title', 'content']
 
 
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):

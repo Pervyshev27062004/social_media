@@ -1,8 +1,8 @@
 from django.contrib.auth.models import User
 
 from django import forms
-from profiles.models import Profile
-from django.forms import ModelForm
+from profiles.models import Profile, Post
+from django.forms import ModelForm, TextInput, Textarea
 
 
 class RegisterForm(forms.Form):
@@ -13,10 +13,21 @@ class RegisterForm(forms.Form):
     age = forms.IntegerField(min_value=18, max_value=30, required=False)
 
 
-class AddPostForm(forms.Form):
-    title = forms.CharField(max_length=50)
-    author = forms.CharField()
-    content = forms.CharField(max_length=1000, widget=forms.Textarea)
+class AddPostForm(ModelForm):
+    class Meta:
+        model = Post
+        fields = ['title', 'content', 'author']
+
+        widgets = {
+            "title": TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Название поста'
+            }),
+            "content": Textarea(attrs={
+                "class": "form-control",
+                "placeholder": "Текст поста"
+            }),
+        }
 
 
 class UserUpdateForm(ModelForm):
