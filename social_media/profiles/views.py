@@ -98,7 +98,7 @@ def profile(request):
 
 
 def post(request):
-    notes = Post.objects.all()
+    posts = Post.objects.all()
     if request.method == "POST":
         form = AddPostForm(request.POST)
         if form.is_valid():
@@ -107,10 +107,10 @@ def post(request):
                 title=form.cleaned_data["title"],
                 text=form.cleaned_data["content"],
             )
-            return redirect("post")
+            return redirect("home.html")
     else:
         form = AddPostForm()
-    return render(request, "index.html", {"notes": notes, "form": form})
+    return render(request, "home.html", {"posts": posts, "form": form})
 
 
 class PostListView(ListView):

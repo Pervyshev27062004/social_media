@@ -1,6 +1,6 @@
 from django import forms
 
 
-class AddPostForm(forms.Form):
+class AddMessageForm(forms.Form):
     title = forms.CharField(max_length=50)
-    body = forms.CharField(max_length=1000, widget=forms.Textarea)
+    message = forms.CharField(max_length=1000, widget=forms.Textarea)

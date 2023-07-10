@@ -2,22 +2,18 @@
 {% block content %}
     {% for message in messages %}
         <article class="media content-section">
-          <img class="rounded-circle article-img" src="{{ post.author.profile.profile_pic.url }}">
+          <img class="rounded-circle article-img" src="{{ message.author.profile.profile_pic.url }}">
           <div class="media-body">
             <div class="article-metadata">
-
-              <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
+              <a class="mr-2" href="#">{{ message.author }}</a>
+              <small class="text-muted">{{ messages.date_posted|date:"F d, Y" }}</small>
             </div>
-            <p class="article-content">{{ post.content }}</p>
+            <p class="article-message">{{ message.message }}</p>
           </div>
         </article>
 <script type="text/javascript" src="//yandex.st/share/share.js"
 charset="utf-8"></script>
 
-<!-- LikeBtn.com BEGIN -->
-<span class="likebtn-wrapper" data-lang="ru" data-identifier="item_1"></span>
-<script>(function(d,e,s){if(d.getElementById("likebtn_wjs"))return;a=d.createElement(e);m=d.getElementsByTagName(e)[0];a.async=1;a.id="likebtn_wjs";a.src=s;m.parentNode.insertBefore(a, m)})(document,"script","//w.likebtn.com/js/w/widget.js");</script>
-<!-- LikeBtn.com END -->
     {% endfor %}
     <div class="pagination justify-content-center">
     {% if is_paginated %}

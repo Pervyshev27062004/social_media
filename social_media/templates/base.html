@@ -14,33 +14,31 @@
      <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
 
     {% if title %}
-        <title>TeamGeistNetzwerk {{ title }}</title>
+        <title>Just do it {{ title }}</title>
     {% else %}
-        <title>TeamGeistNetzwerk</title>
+        <title>Just do it</title>
     {% endif %}
 </head>
 <body>
 
     <header class="site-header">
-      <nav class="navbar navbar-expand-md navbar-dark bg-blue fixed-top">
+      <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
         <div class="container">
-          <a class="navbar-brand mr-4" href="{% url 'home' %}"><i class='bx bxs-rocket bx-tada-hover'></i> Python Bytes</a>
+          <a class="navbar-brand mr-4" href="{% url 'home' %}"><i class='bx bxs-rocket bx-tada-hover'></i> Just do it </a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarToggle">
             <div class="navbar-nav mr-auto">
-              <a class="nav-item nav-link " href="{% url 'home' %}">Главная</a>
-                <a class="nav-item nav-link " href="{% url 'home' %}">О проекте TeamgeistNetzwerk</a>
+                <a class="nav-item nav-link " href="{% url 'home' %}">О проекте Just do it</a>
 
 
             </div>
             <!-- Правая часть навигационной панели -->
             <div class="navbar-nav">
               {% if user.is_authenticated %}
-                <a class="nav-item nav-link" href="{% url 'post-create' %}">Новая запись</a>
             	<a class="nav-item nav-link" href="{% url 'profile' %}">Профиль</a>
-            	<a class="nav-item nav-link" href="{% url 'logout' %}">Выход</a>
+            	<a class="nav-item nav-link" href="{% url 'logout' %}">Выйти из аккаунта</a>
           	{% else %}
             	<a class="nav-item nav-link" href="{% url 'login' %}?next=/">Вход</a>
             	<a class="nav-item nav-link" href="{% url 'register' %}">Регистрация</a>
@@ -60,10 +58,10 @@
             <h3>Разделы</h3>
             <p class='text-muted'>новости и события
               <ul class="list-group">
-                <li class="list-group-item list-group-item-light">Новые записи</li>
-                <li class="list-group-item list-group-item-light">Объявления</li>
-                <li class="list-group-item list-group-item-light">Соревнования</li>
-                <li class="list-group-item list-group-item-light">Встречи участников</li>
+                <a href="{% url 'post-create' %}"> <li class="list-group-item list-group-item-light">Новый пост</li></a>
+                <a href="{% url 'post_message' %}"><li class="list-group-item list-group-item-light">Сообщения</li></a>
+                <a href="{% url 'post_message' %}"><li class="list-group-item list-group-item-light">Галерея</li></a>
+                <a href="{% url 'post_message' %}"><li class="list-group-item list-group-item-light">Музыка</li></a>
               </ul>
             </p>
           </div>
@@ -73,7 +71,7 @@
     </main>
     <!-- Футер закреплен внизу, независимо от количества постов на странице -->
     <footer class="text-center bg-dark">
-      <p><a href="{% url 'home' %}">© Клуб Python Bytes 2022</a></p>
+      <p><a href="{% url 'home' %}">© Just do it</a></p>
     </footer>
 
     <!-- Дополнительные скрипты JavaScript -->
