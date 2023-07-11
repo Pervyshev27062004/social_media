@@ -4,7 +4,7 @@ from django.conf import settings
 from django.contrib.auth import views as auth_views
 from profiles import views as user_views
 from message.views import MessageListView, post_message
-from gallery.views import PictureListView, PictureDetailView, UserPictureListView, post_picture
+from gallery.views import PictureListView, PictureDeleteView, UserPictureListView, post_picture
 
 
 from profiles.views import (
@@ -40,12 +40,12 @@ urlpatterns = [
     path("messages/", MessageListView.as_view(), name="message"),
     path("add_message/", post_message, name="add_message"),
     path("gallery/<str:username>", PictureListView.as_view(), name="gallery"),
-    path("picture/<int:pk>/", PictureDetailView.as_view(), name="picture-detail"),
     path("gallery_all/", PictureListView.as_view(), name="gallery_all"),
     path("user_picture/<str:username>", UserPictureListView.as_view(), name="user-pictures"),
     path("add_picture/", post_picture, name="add_picture"),
-
+    path("picture/<int:pk>/delete/", PictureDeleteView.as_view(), name="picture-delete"),
 ]
+
 
 if settings.DEBUG:
     from django.conf.urls.static import static

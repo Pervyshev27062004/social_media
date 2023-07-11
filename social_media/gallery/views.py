@@ -4,6 +4,8 @@ from django.views.generic import ListView, DetailView
 from django.shortcuts import get_object_or_404
 from gallery.forms import AddPictureForm
 from django.contrib.auth.models import User
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.views.generic import DeleteView
 
 
 class PictureListView(ListView):
@@ -11,11 +13,6 @@ class PictureListView(ListView):
     template_name = 'gallery_all.html'
     context_object_name = 'pictures'
     paginate_by = 10
-
-
-class PictureDetailView(DetailView):
-    model = Picture
-    template_name = "picture_detail.html"
 
 
 class UserPictureListView(ListView):
@@ -46,3 +43,15 @@ def post_picture(request):
         'error': error
     }
     return render(request, "add_picture.html", data)
+
+
+class PictureDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Picture
+    template_name = 'picture_confirm_delete.html'
+    success_url = 'gallery_all'
+
+    def test_func(self):
+        picture = self.get_object()
+        if self.request.user == picture.author:
+            return True
+        return False

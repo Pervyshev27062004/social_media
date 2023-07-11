@@ -20,7 +20,7 @@ charset="utf-8"></script>
 
     {% endfor %}
 {% include "add_message.html" %}
-
+<a class="mr-2" href="{% url 'add_message' %}">Отправить сообщение</a>
     <div class="pagination justify-content-center">
     {% if is_paginated %}
 

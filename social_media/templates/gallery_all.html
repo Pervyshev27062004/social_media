@@ -11,7 +11,7 @@
               <small class="text-muted">{{ picture.date_posted|date:"F d, Y" }}</small>
             <img class="card-img-top" src="{{ picture.gallery_pic.url }}">
 
-            <h2><a class="article-title" href="{% url 'picture-detail' picture.id %}">{{ picture.description }}</a></h2>
+            <h2><a class="article-title" href="{% url 'picture-delete' picture.id %}">{{ picture.description }}</a></h2>
             </div>
 
 

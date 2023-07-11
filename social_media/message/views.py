@@ -11,7 +11,7 @@ class MessageListView(ListView):
     model = Message
     template_name = 'messages.html'
     context_object_name = 'messages'
-    ordering = ['-date_posted']
+    ordering = ['date_posted']
     paginate_by = 10
 
 
