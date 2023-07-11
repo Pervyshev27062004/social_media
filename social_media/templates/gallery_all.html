@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+
+    {% for picture in pictures %}
+        <article class="media content-section">
+          <img class="rounded-circle article-img" src="{{ picture.author.profile.profile_pic.url }}">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="{% url 'user-pictures' picture.author.username %}">{{ picture.author }}</a>
+              <small class="text-muted">{{ picture.date_posted|date:"F d, Y" }}</small>
+            </div>
+                          <img class="card-img-top" src="{{ picture.gallery_pic.url }}">
+
+            <h2><a class="article-title" href="{% url 'picture-detail' picture.id %}">{{ picture.description }}</a></h2>
+
+          </div>
+        </article>
+
+
+
+    {% endfor %}
+
+
+{% endblock content %}

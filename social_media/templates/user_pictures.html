@@ -1,20 +1,25 @@
 {% extends "base.html" %}
 {% block content %}
-
-    {% for picture in pictures %}
+    <h1 class="mb-3">Записи пользователя {{ view.kwargs.username }} ({{ page_obj.paginator.count }})</h1>
+    {% for post in posts %}
         <article class="media content-section">
-            <a class="mr-2" href="#">{{ picture.author }}</a>
           <img class="rounded-circle article-img" src="{{ picture.author.profile.profile_pic.url }}">
-            <img class="card-img-top" src="{{ picture.gallery_pic.url }}">
-            <h3><a class="article-title" href="{% url 'picture-detail' picture.id %}">{{ picture.description }}</a></h3>
-        </article>
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="{% url 'user-pictures' picture.author.username %}">{{ picture.author }}</a>
+              <small class="text-muted">{{ picture.date_posted|date:"F d, Y" }}</small>
+            </div>
 
+            <h2><a class="article-title" href="{% url 'picture-detail' picture.id %}">{{ picture.description }}</a></h2>
+                      <img class="card-img-top" src="{{ picture.gallery_pic.url }}">
+
+          </div>
+        </article>
     {% endfor %}
     <div class="pagination justify-content-center">
     {% if is_paginated %}
 
       {% if page_obj.has_previous %}
-
         <a class="btn btn-outline-info mb-4 mr-1" href="?page=1">Первая</a>
         <a class="btn btn-outline-info mb-4 mr-1" href="?page={{ page_obj.previous_page_number }}">Предыдущая</a>
       {% endif %}
