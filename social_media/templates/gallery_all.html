@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-
+<h1 class="mb-3"> Галерея пользователей</h1>
     {% for picture in pictures %}
         <article class="media content-section">
           <img class="rounded-circle article-img" src="{{ picture.author.profile.profile_pic.url }}">

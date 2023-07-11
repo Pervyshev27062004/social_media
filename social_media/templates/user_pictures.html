@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
-    <h1 class="mb-3">Записи пользователя {{ view.kwargs.username }} ({{ page_obj.paginator.count }})</h1>
-    {% for post in posts %}
+    <h1 class="mb-3">Альбом пользователя {{ view.kwargs.username }} ({{ page_obj.paginator.count }})</h1>
+    {% for picture in pictures %}
         <article class="media content-section">
           <img class="rounded-circle article-img" src="{{ picture.author.profile.profile_pic.url }}">
           <div class="media-body">
