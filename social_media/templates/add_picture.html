@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="feature">
+    <h1> Добавить новую картинку в галерею</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.gallery_pic }}<br>
+        {{ form.description }}<br>
+        {{ form.data_posted }}<br>
+        {{ form.author }}<br>
+        <span>{{ error }}</span>
+        <button class="btn btn-warning" type="submit">Добавить пост</button>
+    </form>
+  </div>
+{% endblock %}
